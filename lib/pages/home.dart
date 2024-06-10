@@ -29,7 +29,7 @@ class _HomeState extends State<Home> {
                   ),
                   alignment: Alignment.center,
                   child: Padding(
-                    padding: const EdgeInsets.all(16.0),
+                    padding: const EdgeInsets.fromLTRB(0, 16, 16, 16),
                     child: BarChart(
                       swapAnimationDuration: Duration(seconds: 1),
                       BarChartData(
@@ -56,11 +56,11 @@ class _HomeState extends State<Home> {
                             barRods: [
                               BarChartRodData(
                                 toY: 15,
-                                width: 10,
+                                width: 35,
                                 color: Theme.of(context).colorScheme.primary,
                                 borderRadius: const BorderRadius.only(
-                                  topLeft: Radius.circular(5),
-                                  topRight: Radius.circular(5),
+                                  topLeft: Radius.circular(10),
+                                  topRight: Radius.circular(10),
                                 ),
                               )
                             ],
@@ -70,11 +70,11 @@ class _HomeState extends State<Home> {
                             barRods: [
                               BarChartRodData(
                                 toY: 10,
-                                width: 10,
+                                width: 35,
                                 color: Theme.of(context).colorScheme.primary,
                                 borderRadius: const BorderRadius.only(
-                                  topLeft: Radius.circular(5),
-                                  topRight: Radius.circular(5),
+                                  topLeft: Radius.circular(10),
+                                  topRight: Radius.circular(10),
                                 ),
                               )
                             ],
@@ -84,11 +84,11 @@ class _HomeState extends State<Home> {
                             barRods: [
                               BarChartRodData(
                                 toY: 7.5,
-                                width: 10,
+                                width: 35,
                                 color: Theme.of(context).colorScheme.primary,
                                 borderRadius: const BorderRadius.only(
-                                  topLeft: Radius.circular(5),
-                                  topRight: Radius.circular(5),
+                                  topLeft: Radius.circular(10),
+                                  topRight: Radius.circular(10),
                                 ),
                               )
                             ],
@@ -98,11 +98,11 @@ class _HomeState extends State<Home> {
                             barRods: [
                               BarChartRodData(
                                 toY: 5.5,
-                                width: 10,
+                                width: 35,
                                 color: Theme.of(context).colorScheme.primary,
                                 borderRadius: const BorderRadius.only(
-                                  topLeft: Radius.circular(5),
-                                  topRight: Radius.circular(5),
+                                  topLeft: Radius.circular(10),
+                                  topRight: Radius.circular(10),
                                 ),
                               )
                             ],
@@ -112,11 +112,11 @@ class _HomeState extends State<Home> {
                             barRods: [
                               BarChartRodData(
                                 toY: 6,
-                                width: 10,
+                                width: 35,
                                 color: Theme.of(context).colorScheme.primary,
                                 borderRadius: const BorderRadius.only(
-                                  topLeft: Radius.circular(5),
-                                  topRight: Radius.circular(5),
+                                  topLeft: Radius.circular(10),
+                                  topRight: Radius.circular(10),
                                 ),
                               )
                             ],
