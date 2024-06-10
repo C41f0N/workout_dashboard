@@ -31,7 +31,7 @@ class _HomeState extends State<Home> {
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(0, 16, 16, 16),
                     child: BarChart(
-                      swapAnimationDuration: Duration(seconds: 1),
+                      swapAnimationDuration: const Duration(seconds: 1),
                       BarChartData(
                         alignment: BarChartAlignment.spaceEvenly,
                         gridData: const FlGridData(show: false),
@@ -136,7 +136,74 @@ class _HomeState extends State<Home> {
                     borderRadius: BorderRadius.circular(30),
                   ),
                   alignment: Alignment.center,
-                  child: const Text("Workout Intensity History"),
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            DropdownButton(
+                              items: [
+                                DropdownMenuItem(child: Text("Dumbell Curls"))
+                              ],
+                              onChanged: (x) {},
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.2,
+                          width: MediaQuery.of(context).size.width * 0.5,
+                          child: LineChart(
+                            LineChartData(
+                              gridData: const FlGridData(show: false),
+                              borderData: FlBorderData(
+                                border: const Border(
+                                  left: BorderSide(),
+                                ),
+                              ),
+                              titlesData: const FlTitlesData(
+                                topTitles: AxisTitles(),
+                                bottomTitles: AxisTitles(),
+                                rightTitles: AxisTitles(),
+                              ),
+                              lineBarsData: [
+                                LineChartBarData(
+                                  isCurved: true,
+                                  color: Theme.of(context).colorScheme.primary,
+                                  barWidth: 5,
+                                  spots: [
+                                    const FlSpot(0, 1),
+                                    const FlSpot(1, 1.5),
+                                    const FlSpot(2, 0.7),
+                                    const FlSpot(3, 0.6),
+                                    const FlSpot(4, 0.9),
+                                    const FlSpot(5, 0.5),
+                                    const FlSpot(6, 1.5),
+                                    const FlSpot(7, 0.7),
+                                    const FlSpot(8, 0.6),
+                                    const FlSpot(9, 0.9),
+                                    const FlSpot(10, 0.3),
+                                    const FlSpot(11, 0.6),
+                                    const FlSpot(12, 0.7),
+                                    const FlSpot(13, 0.6),
+                                    const FlSpot(14, 0.9),
+                                    const FlSpot(15, 0.3),
+                                    const FlSpot(16, 0.4),
+                                    const FlSpot(17, 0.7),
+                                    const FlSpot(18, 0.6),
+                                    const FlSpot(19, 0.9),
+                                  ],
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
               ],
             ),
