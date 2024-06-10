@@ -37,6 +37,7 @@ dependencies:
   cupertino_icons: ^1.0.6
   fl_chart: ^0.68.0
   flutter_heatmap_calendar: ^1.0.5
+  auto_size_text: ^3.0.0
 
 dev_dependencies:
   flutter_test:

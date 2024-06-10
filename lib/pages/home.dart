@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart';
@@ -32,11 +33,16 @@ class _HomeState extends State<Home> {
                   ),
                   alignment: Alignment.center,
                   child: Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 16, 16, 16),
+                    padding: EdgeInsets.fromLTRB(
+                      MediaQuery.of(context).size.width * 0.02,
+                      MediaQuery.of(context).size.height * 0.03,
+                      MediaQuery.of(context).size.width * 0.02,
+                      MediaQuery.of(context).size.height * 0.03,
+                    ),
                     child: BarChart(
                       swapAnimationDuration: const Duration(seconds: 1),
                       BarChartData(
-                        alignment: BarChartAlignment.spaceEvenly,
+                        alignment: BarChartAlignment.spaceAround,
                         gridData: const FlGridData(show: false),
                         borderData: FlBorderData(
                           show: true,
@@ -45,12 +51,23 @@ class _HomeState extends State<Home> {
                             // left: BorderSide(color: Colors.grey[500]!),
                           ),
                         ),
-                        titlesData: const FlTitlesData(
+                        titlesData: FlTitlesData(
                           bottomTitles: AxisTitles(
                             sideTitles: SideTitles(showTitles: false),
                           ),
                           rightTitles: AxisTitles(
                             sideTitles: SideTitles(showTitles: false),
+                          ),
+                          leftTitles: AxisTitles(
+                            sideTitles: SideTitles(showTitles: false),
+                          ),
+                          topTitles: AxisTitles(
+                            sideTitles: SideTitles(
+                              reservedSize: 5,
+                              getTitlesWidget: (x, y) {
+                                return Text("dfdf");
+                              },
+                            ),
                           ),
                         ),
                         barGroups: [
@@ -140,14 +157,31 @@ class _HomeState extends State<Home> {
                   ),
                   alignment: Alignment.center,
                   child: Padding(
-                    padding: const EdgeInsets.all(16.0),
+                    padding: EdgeInsets.fromLTRB(
+                      MediaQuery.of(context).size.width * 0.02,
+                      MediaQuery.of(context).size.height * 0.03,
+                      MediaQuery.of(context).size.width * 0.02,
+                      MediaQuery.of(context).size.height * 0.04,
+                    ),
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.23,
+                              height: MediaQuery.of(context).size.height * 0.04,
+                              child: const AutoSizeText(
+                                "Set History",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 200,
+                                ),
+                                textAlign: TextAlign.left,
+                              ),
+                            ),
                             DropdownButton(
                               items: [
                                 DropdownMenuItem(child: Text("Dumbell Curls"))
@@ -177,6 +211,7 @@ class _HomeState extends State<Home> {
                                   isCurved: true,
                                   color: Theme.of(context).colorScheme.primary,
                                   barWidth: 5,
+                                  curveSmoothness: 0.35,
                                   spots: [
                                     const FlSpot(0, 1),
                                     const FlSpot(1, 1.5),
@@ -227,13 +262,11 @@ class _HomeState extends State<Home> {
                     showColorTip: false,
                     size: min(MediaQuery.of(context).size.height * 0.05,
                         MediaQuery.of(context).size.width * 0.1),
-                    colorsets: {
-                      10: Colors.green,
-                    },
+                    colorsets: const {10: Colors.green},
                     datasets: {
                       DateTime.now(): 10,
                     },
-                    borderRadius: 20,
+                    borderRadius: 100,
                     defaultColor: Colors.grey[800],
                     textColor: Colors.white,
                   ),
@@ -247,6 +280,74 @@ class _HomeState extends State<Home> {
                     borderRadius: BorderRadius.circular(30),
                   ),
                   alignment: Alignment.center,
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Column(
+                          children: [
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.23,
+                              height: MediaQuery.of(context).size.height * 0.1,
+                              child: const AutoSizeText(
+                                "Average Completion",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 200,
+                                ),
+                                textAlign: TextAlign.left,
+                              ),
+                            ),
+                            const Text("This Week"),
+                            const SizedBox(height: 10),
+                            LinearProgressIndicator(
+                              color: Theme.of(context).colorScheme.primary,
+                              value: 0.5,
+                              minHeight: 10,
+                              borderRadius: BorderRadius.circular(100),
+                            ),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            const Text("Past Month"),
+                            const SizedBox(height: 10),
+                            LinearProgressIndicator(
+                              color: Theme.of(context).colorScheme.primary,
+                              value: 0.5,
+                              minHeight: 10,
+                              borderRadius: BorderRadius.circular(100),
+                            ),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            const Text("Past 3 Months"),
+                            const SizedBox(height: 10),
+                            LinearProgressIndicator(
+                              color: Theme.of(context).colorScheme.primary,
+                              value: 0.5,
+                              minHeight: 10,
+                              borderRadius: BorderRadius.circular(100),
+                            ),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            const Text("Past 6 Months"),
+                            const SizedBox(height: 10),
+                            LinearProgressIndicator(
+                              color: Theme.of(context).colorScheme.primary,
+                              value: 0.5,
+                              minHeight: 10,
+                              borderRadius: BorderRadius.circular(100),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
 
                 // Text Editor
