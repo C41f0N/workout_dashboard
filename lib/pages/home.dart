@@ -1,5 +1,8 @@
+import 'dart:math';
+
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -213,19 +216,43 @@ class _HomeState extends State<Home> {
                 // Consistency Calendar
                 Container(
                   height: MediaQuery.of(context).size.height * 0.47,
-                  width: MediaQuery.of(context).size.width * 0.47,
+                  width: MediaQuery.of(context).size.width * 0.27,
                   decoration: BoxDecoration(
                     color: Colors.grey[900],
                     borderRadius: BorderRadius.circular(30),
                   ),
                   alignment: Alignment.center,
-                  child: const Text("Consistency Calender"),
+                  child: HeatMapCalendar(
+                    colorMode: ColorMode.opacity,
+                    showColorTip: false,
+                    size: min(MediaQuery.of(context).size.height * 0.05,
+                        MediaQuery.of(context).size.width * 0.1),
+                    colorsets: {
+                      10: Colors.green,
+                    },
+                    datasets: {
+                      DateTime.now(): 10,
+                    },
+                    borderRadius: 20,
+                    defaultColor: Colors.grey[800],
+                    textColor: Colors.white,
+                  ),
+                ),
+
+                Container(
+                  height: MediaQuery.of(context).size.height * 0.47,
+                  width: MediaQuery.of(context).size.width * 0.27,
+                  decoration: BoxDecoration(
+                    color: Colors.grey[900],
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  alignment: Alignment.center,
                 ),
 
                 // Text Editor
                 Container(
                   height: MediaQuery.of(context).size.height * 0.47,
-                  width: MediaQuery.of(context).size.width * 0.47,
+                  width: MediaQuery.of(context).size.width * 0.37,
                   decoration: BoxDecoration(
                     color: Colors.grey[900],
                     borderRadius: BorderRadius.circular(30),
