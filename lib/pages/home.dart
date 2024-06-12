@@ -387,7 +387,39 @@ class _HomeState extends State<Home> {
                     borderRadius: BorderRadius.circular(30),
                   ),
                   alignment: Alignment.center,
-                  child: const Text("Text Editor"),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.23,
+                          height: MediaQuery.of(context).size.height * 0.1,
+                          child: const AutoSizeText(
+                            "Last Workout",
+                            style: TextStyle(
+                              fontWeight: FontWeight.w400,
+                              fontSize: 200,
+                            ),
+                            textAlign: TextAlign.left,
+                          ),
+                        ),
+                        const Text(
+                          '''
+Squats (5-kg weight) - 25x3
+Lunges - 20x3
+Calf Raises (5-kg weight) - 35x3
+                  ''',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w300,
+                            fontSize: 20,
+                          ),
+                          textAlign: TextAlign.left,
+                        ),
+                        const SizedBox(),
+                      ],
+                    ),
+                  ),
                 ),
               ],
             ),
