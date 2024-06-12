@@ -4,15 +4,25 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart';
+import 'package:workout_dashboard/parsing_ops/workout_data.dart';
 
 class Home extends StatefulWidget {
-  const Home({super.key});
+  Home({super.key});
 
   @override
   State<Home> createState() => _HomeState();
+
+  WorkoutData? workoutData;
 }
 
 class _HomeState extends State<Home> {
+  @override
+  void initState() {
+    widget.workoutData = WorkoutData();
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,7 +47,21 @@ class _HomeState extends State<Home> {
                       ),
                     ),
                     IconButton(
-                        onPressed: () {}, icon: const Icon(Icons.settings))
+                      onPressed: () {
+                        if (widget.workoutData != null) {
+                          widget.workoutData!.getFile();
+                        }
+                      },
+                      icon: const Icon(Icons.settings),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        if (widget.workoutData != null) {
+                          widget.workoutData!.parseData();
+                        }
+                      },
+                      icon: const Icon(Icons.settings),
+                    )
                   ],
                 ),
               ),
