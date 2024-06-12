@@ -87,10 +87,15 @@ class WorkoutData {
         print("Some exception occoured : ${e.toString()}");
       }
 
+      printWorkouts();
     }
   }
 
-    print(rawWorkoutLogString);
+  void printWorkouts() {
+    for (int i = 0; i < workouts.length; i++) {
+      workouts[i].printWorkout();
+    }
+  }
 
   int monthToNum(String month3Letter) {
     return monthNum[month3Letter] ?? 1;
