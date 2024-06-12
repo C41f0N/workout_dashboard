@@ -35,12 +35,40 @@ class _HomeState extends State<Home> {
                   child: Padding(
                     padding: EdgeInsets.fromLTRB(
                       MediaQuery.of(context).size.width * 0.02,
-                      MediaQuery.of(context).size.height * 0.03,
+                      MediaQuery.of(context).size.height * 0.05,
                       MediaQuery.of(context).size.width * 0.02,
-                      MediaQuery.of(context).size.height * 0.03,
+                      MediaQuery.of(context).size.height * 0.05,
                     ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.23,
+                              height:
+                                  MediaQuery.of(context).size.height * 0.045,
+                              child: const AutoSizeText(
+                                "Workout Density",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 200,
+                                ),
+                                textAlign: TextAlign.right,
+                              ),
+                            ),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.01,
+                            )
+                          ],
+                        ),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.15,
+                          width: MediaQuery.of(context).size.width * 0.3,
                     child: BarChart(
-                      swapAnimationDuration: const Duration(seconds: 1),
+                            swapAnimationDuration:
+                                const Duration(milliseconds: 250),
                       BarChartData(
                         alignment: BarChartAlignment.spaceAround,
                         gridData: const FlGridData(show: false),
