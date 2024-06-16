@@ -270,9 +270,10 @@ class _HomeState extends State<Home> {
                               ),
                             ),
                             DropdownButton(
-                              items: [
-                                const DropdownMenuItem(
-                                    child: Text("Dumbell Curls"))
+                              items: const [
+                                DropdownMenuItem(
+                                  child: Text("Dumbell Curls"),
+                                )
                               ],
                               onChanged: (x) {},
                             ),

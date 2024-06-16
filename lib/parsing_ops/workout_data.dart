@@ -86,8 +86,6 @@ class WorkoutData {
       } catch (e) {
         print("Some exception occoured : ${e.toString()}");
       }
-
-      printWorkouts();
     }
   }
 
@@ -106,7 +104,7 @@ class WorkoutData {
       int minutes = 0, seconds = 0;
 
       if (reps.contains("min")) {
-        int minutes = int.parse(reps.split("min")[0]);
+        minutes = int.parse(reps.split("min")[0]);
 
         if (reps.contains("sec")) {
           seconds = int.parse(reps.split("min")[1].replaceAll("sec", ""));
