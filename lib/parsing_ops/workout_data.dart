@@ -1,8 +1,12 @@
 import 'package:file_selector/file_selector.dart';
+import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:workout_dashboard/parsing_ops/excercise.dart';
 import 'package:workout_dashboard/parsing_ops/workout.dart';
 
-class WorkoutData {
+class WorkoutData extends ChangeNotifier {
+  final _workoutDatabase = Hive.box("WORKOUT_DATABASE");
+
   List<Workout> workouts = [];
   XFile? workoutLogFile;
   String rawWorkoutLogString = "";
@@ -30,7 +34,20 @@ class WorkoutData {
       )
     ]);
 
-    await readFile();
+    // Persisting read file
+    persistLogFile();
+  }
+
+  // Function to persist the log into device storage
+  void persistLogFile() {
+    if (workoutLogFile != null) {
+      _workoutDatabase.put("workout_log_file_path", workoutLogFile!.path);
+    }
+  }
+
+  // Function to load the log from the device storage
+  void loadPersistedLogFile() {
+    workoutLogFile = XFile(_workoutDatabase.get("workout_log_file_path"));
   }
 
   // Function to read data from file
@@ -87,6 +104,8 @@ class WorkoutData {
         print("Some exception occoured : ${e.toString()}");
       }
     }
+
+    notifyListeners();
   }
 
   void printWorkouts() {
