@@ -36,6 +36,7 @@ class WorkoutData extends ChangeNotifier {
 
     // Persisting read file
     persistLogFile();
+    notifyListeners();
   }
 
   // Function to persist the log into device storage
@@ -52,12 +53,18 @@ class WorkoutData extends ChangeNotifier {
 
   // Function to read data from file
   Future<void> readFile() async {
+    loadPersistedLogFile();
+
     if (workoutLogFile != null) {
+      print("read file.");
       rawWorkoutLogString = await workoutLogFile!.readAsString();
     }
   }
 
-  void parseData() {
+  // Parse the file data and store it (returns true when parsing complete)
+  Future<bool> parseData() async {
+    await readFile();
+
     List<String> workoutRawStrings = rawWorkoutLogString.split("\n\n");
 
     for (int i = 0; i < workoutRawStrings.length; i++) {
@@ -95,17 +102,20 @@ class WorkoutData extends ChangeNotifier {
 
           // Creating and adding excercises
           excercises
-              .add(new Excercise(excerciseName, excerciseSets, excerciseReps));
+              .add(Excercise(excerciseName, excerciseSets, excerciseReps));
         }
 
         // Creating and adding workout
-        workouts.add(new Workout(workoutDate, workoutName, excercises));
+
+        workouts.add(Workout(workoutDate, workoutName, excercises));
       } catch (e) {
         print("Some exception occoured : ${e.toString()}");
       }
     }
 
-    notifyListeners();
+    print("Parsed data");
+    print(workouts.length);
+    return true;
   }
 
   void printWorkouts() {
@@ -133,5 +143,15 @@ class WorkoutData extends ChangeNotifier {
     }
 
     return double.parse(reps);
+  }
+
+  List<DateTime> getWorkoutDates() {
+    List<DateTime> workoutDates = [];
+
+    for (int i = 0; i < workouts.length; i++) {
+      workoutDates.add(workouts[i].date);
+    }
+
+    return workoutDates;
   }
 }
