@@ -63,6 +63,7 @@ class WorkoutData extends ChangeNotifier {
   // Parse the file data and store it (returns true when parsing complete)
   Future<bool> parseData() async {
     await readFile();
+    print("parsing");
 
     List<String> workoutRawStrings = rawWorkoutLogString.split("\n\n");
 
@@ -159,5 +160,62 @@ class WorkoutData extends ChangeNotifier {
   // Get current file path
   String? getStoredFilePath() {
     return _workoutDatabase.get("workout_log_file_path");
+  }
+
+  // Get previous weeks percentage completion
+  double getPreviousWeekPercentageCompletion(int weeks) {
+    List<DateTime> workoutDates = getWorkoutDates();
+    double completionPercentage = 0.0;
+
+    DateTime dayToCheck =
+        DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
+
+    //get last monday
+    while (dayToCheck.weekday != 1) {
+      dayToCheck = dayToCheck.subtract(const Duration(days: 1));
+    }
+
+    // for every week
+    for (int i = 0; i < weeks; i++) {
+      int completedInWeek = 0;
+
+      // Check each day of the week
+      for (int j = 0; j < 7; j++) {
+        dayToCheck = dayToCheck.subtract(const Duration(days: 1));
+        print("Checking day: $j, $dayToCheck");
+        if (workoutDates.contains(dayToCheck)) {
+          completedInWeek++;
+        }
+      }
+
+      completionPercentage = (completionPercentage + (completedInWeek / 5)) / 2;
+    }
+
+    return completionPercentage;
+  }
+
+  double getCurrentWeekCompletion() {
+    List<DateTime> workoutDates = getWorkoutDates();
+
+    DateTime dayToCheck =
+        DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
+
+    int completedInWeek = 0;
+
+    // Check each day of the week and stop at monday
+    do {
+      if (workoutDates.contains(dayToCheck)) {
+        completedInWeek++;
+      }
+
+      dayToCheck = dayToCheck.subtract(const Duration(days: 1));
+    } while (dayToCheck.weekday != 1);
+
+    // Check Monday
+    if (workoutDates.contains(dayToCheck)) {
+      completedInWeek++;
+    }
+
+    return completedInWeek / 5;
   }
 }
