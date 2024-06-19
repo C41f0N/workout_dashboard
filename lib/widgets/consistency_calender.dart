@@ -34,22 +34,26 @@ class _ConsistencyCalendarState extends State<ConsistencyCalendar> {
             defaultColor: Theme.of(context).colorScheme.surface,
             textColor: Colors.white,
           ),
-          Container(
-            color: Colors.black.withOpacity(0.85),
-          ),
-          Container(
-            decoration: BoxDecoration(
-              // color: Theme.of(context).colorScheme.surface,
-              borderRadius: BorderRadius.circular(20),
-            ),
-            padding: const EdgeInsets.all(16.0),
-            child: const Text(
-              "No data to crunch.",
-              style: TextStyle(
-                fontSize: 16,
-              ),
-            ),
-          ),
+          workoutDatabase.getStoredFilePath() == null
+              ? Container(
+                  color: Colors.black.withOpacity(0.85),
+                )
+              : const SizedBox(),
+          workoutDatabase.getStoredFilePath() == null
+              ? Container(
+                  decoration: BoxDecoration(
+                    // color: Theme.of(context).colorScheme.surface,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  padding: const EdgeInsets.all(16.0),
+                  child: const Text(
+                    "No data to crunch.",
+                    style: TextStyle(
+                      fontSize: 16,
+                    ),
+                  ),
+                )
+              : const SizedBox(),
         ],
       );
     });
