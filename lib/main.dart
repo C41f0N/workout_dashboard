@@ -23,10 +23,12 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Workout Dashboard',
         theme: ThemeData(
-          colorScheme: const ColorScheme.dark(
-            primary: Colors.green,
-          ),
-        ),
+            useMaterial3: true,
+            colorScheme: const ColorScheme.dark(
+              primary: Colors.green,
+              surface: Color.fromARGB(255, 24, 24, 24),
+            ),
+            scaffoldBackgroundColor: Colors.black),
         home: Home(),
       ),
     );
