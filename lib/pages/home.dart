@@ -5,6 +5,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart';
 import 'package:provider/provider.dart';
+import 'package:workout_dashboard/pages/settings.dart';
 import 'package:workout_dashboard/parsing_ops/workout_data.dart';
 
 class Home extends StatefulWidget {
@@ -46,7 +47,11 @@ class _HomeState extends State<Home> {
                               ),
                               IconButton(
                                 onPressed: () {
-                                  workoutDatabase.getFile();
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) => SettingsPage(),
+                                    ),
+                                  );
                                 },
                                 icon: const Icon(Icons.settings),
                               ),
@@ -62,7 +67,7 @@ class _HomeState extends State<Home> {
                             height: MediaQuery.of(context).size.height * 0.32,
                             width: MediaQuery.of(context).size.width * 0.37,
                             decoration: BoxDecoration(
-                              color: Colors.grey[900],
+                              color: Theme.of(context).colorScheme.surface,
                               borderRadius: BorderRadius.circular(30),
                             ),
                             alignment: Alignment.center,
@@ -260,7 +265,7 @@ class _HomeState extends State<Home> {
                             height: MediaQuery.of(context).size.height * 0.32,
                             width: MediaQuery.of(context).size.width * 0.57,
                             decoration: BoxDecoration(
-                              color: Colors.grey[900],
+                              color: Theme.of(context).colorScheme.surface,
                               borderRadius: BorderRadius.circular(30),
                             ),
                             alignment: Alignment.center,
@@ -373,7 +378,7 @@ class _HomeState extends State<Home> {
                             height: MediaQuery.of(context).size.height * 0.40,
                             width: MediaQuery.of(context).size.width * 0.27,
                             decoration: BoxDecoration(
-                              color: Colors.grey[900],
+                              color: Theme.of(context).colorScheme.surface,
                               borderRadius: BorderRadius.circular(30),
                             ),
                             alignment: Alignment.center,
@@ -391,7 +396,8 @@ class _HomeState extends State<Home> {
                                   date: 1
                               },
                               borderRadius: 100,
-                              defaultColor: Colors.grey[800],
+                              defaultColor:
+                                  Theme.of(context).colorScheme.surface,
                               textColor: Colors.white,
                             ),
                           ),
@@ -400,7 +406,7 @@ class _HomeState extends State<Home> {
                             height: MediaQuery.of(context).size.height * 0.40,
                             width: MediaQuery.of(context).size.width * 0.27,
                             decoration: BoxDecoration(
-                              color: Colors.grey[900],
+                              color: const Color.fromARGB(255, 24, 24, 24),
                               borderRadius: BorderRadius.circular(30),
                             ),
                             alignment: Alignment.center,
@@ -456,6 +462,8 @@ class _HomeState extends State<Home> {
                                         color: Theme.of(context)
                                             .colorScheme
                                             .primary,
+                                        backgroundColor: Theme.of(context)
+                                            .scaffoldBackgroundColor,
                                         value: 0.5,
                                         minHeight: 10,
                                         borderRadius:
@@ -471,6 +479,8 @@ class _HomeState extends State<Home> {
                                         color: Theme.of(context)
                                             .colorScheme
                                             .primary,
+                                        backgroundColor: Theme.of(context)
+                                            .scaffoldBackgroundColor,
                                         value: 0.5,
                                         minHeight: 10,
                                         borderRadius:
@@ -486,6 +496,8 @@ class _HomeState extends State<Home> {
                                         color: Theme.of(context)
                                             .colorScheme
                                             .primary,
+                                        backgroundColor: Theme.of(context)
+                                            .scaffoldBackgroundColor,
                                         value: 0.5,
                                         minHeight: 10,
                                         borderRadius:
@@ -501,6 +513,8 @@ class _HomeState extends State<Home> {
                                         color: Theme.of(context)
                                             .colorScheme
                                             .primary,
+                                        backgroundColor: Theme.of(context)
+                                            .scaffoldBackgroundColor,
                                         value: 0.5,
                                         minHeight: 10,
                                         borderRadius:
@@ -518,7 +532,7 @@ class _HomeState extends State<Home> {
                             height: MediaQuery.of(context).size.height * 0.40,
                             width: MediaQuery.of(context).size.width * 0.37,
                             decoration: BoxDecoration(
-                              color: Colors.grey[900],
+                              color: Theme.of(context).colorScheme.surface,
                               borderRadius: BorderRadius.circular(30),
                             ),
                             alignment: Alignment.center,
