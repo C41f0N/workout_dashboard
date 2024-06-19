@@ -56,7 +56,6 @@ class WorkoutData extends ChangeNotifier {
     loadPersistedLogFile();
 
     if (workoutLogFile != null) {
-      print("read file.");
       rawWorkoutLogString = await workoutLogFile!.readAsString();
     }
   }
@@ -113,21 +112,22 @@ class WorkoutData extends ChangeNotifier {
       }
     }
 
-    print("Parsed data");
-    print(workouts.length);
     return true;
   }
 
+  // Print all recorded workouts
   void printWorkouts() {
     for (int i = 0; i < workouts.length; i++) {
       workouts[i].printWorkout();
     }
   }
 
+  // Get month index number
   int monthToNum(String month3Letter) {
     return monthNum[month3Letter] ?? 1;
   }
 
+  // Convert time based reps to float values, one unit being one minute
   double manageRepsToFloat(String reps) {
     if (double.tryParse(reps) == null) {
       int minutes = 0, seconds = 0;
@@ -145,6 +145,7 @@ class WorkoutData extends ChangeNotifier {
     return double.parse(reps);
   }
 
+  // Function to get workout dates
   List<DateTime> getWorkoutDates() {
     List<DateTime> workoutDates = [];
 
@@ -153,5 +154,10 @@ class WorkoutData extends ChangeNotifier {
     }
 
     return workoutDates;
+  }
+
+  // Get current file path
+  String? getStoredFilePath() {
+    return _workoutDatabase.get("workout_log_file_path");
   }
 }
