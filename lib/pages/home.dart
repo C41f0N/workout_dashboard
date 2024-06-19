@@ -449,7 +449,8 @@ class _HomeState extends State<Home> {
                                             .primary,
                                         backgroundColor: Theme.of(context)
                                             .scaffoldBackgroundColor,
-                                        value: 0.5,
+                                        value: workoutDatabase
+                                            .getCurrentWeekCompletion(),
                                         minHeight: 10,
                                         borderRadius:
                                             BorderRadius.circular(100),
@@ -458,7 +459,7 @@ class _HomeState extends State<Home> {
                                   ),
                                   Column(
                                     children: [
-                                      const Text("Past Month"),
+                                      const Text("Previous 4 Weeks"),
                                       const SizedBox(height: 10),
                                       LinearProgressIndicator(
                                         color: Theme.of(context)
@@ -466,7 +467,9 @@ class _HomeState extends State<Home> {
                                             .primary,
                                         backgroundColor: Theme.of(context)
                                             .scaffoldBackgroundColor,
-                                        value: 0.5,
+                                        value: workoutDatabase
+                                            .getPreviousWeekPercentageCompletion(
+                                                4),
                                         minHeight: 10,
                                         borderRadius:
                                             BorderRadius.circular(100),
@@ -475,7 +478,7 @@ class _HomeState extends State<Home> {
                                   ),
                                   Column(
                                     children: [
-                                      const Text("Past 3 Months"),
+                                      const Text("Past 12 Weeks"),
                                       const SizedBox(height: 10),
                                       LinearProgressIndicator(
                                         color: Theme.of(context)
@@ -483,7 +486,9 @@ class _HomeState extends State<Home> {
                                             .primary,
                                         backgroundColor: Theme.of(context)
                                             .scaffoldBackgroundColor,
-                                        value: 0.5,
+                                        value: workoutDatabase
+                                            .getPreviousWeekPercentageCompletion(
+                                                12),
                                         minHeight: 10,
                                         borderRadius:
                                             BorderRadius.circular(100),
@@ -492,7 +497,7 @@ class _HomeState extends State<Home> {
                                   ),
                                   Column(
                                     children: [
-                                      const Text("Past 6 Months"),
+                                      const Text("Past 36 Weeks"),
                                       const SizedBox(height: 10),
                                       LinearProgressIndicator(
                                         color: Theme.of(context)
@@ -500,7 +505,9 @@ class _HomeState extends State<Home> {
                                             .primary,
                                         backgroundColor: Theme.of(context)
                                             .scaffoldBackgroundColor,
-                                        value: 0.5,
+                                        value: workoutDatabase
+                                            .getPreviousWeekPercentageCompletion(
+                                                36),
                                         minHeight: 10,
                                         borderRadius:
                                             BorderRadius.circular(100),
