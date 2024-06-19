@@ -7,6 +7,7 @@ import 'package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart';
 import 'package:provider/provider.dart';
 import 'package:workout_dashboard/pages/settings.dart';
 import 'package:workout_dashboard/parsing_ops/workout_data.dart';
+import 'package:workout_dashboard/widgets/average_completion_display.dart';
 import 'package:workout_dashboard/widgets/consistency_calender.dart';
 
 class Home extends StatefulWidget {
@@ -384,9 +385,10 @@ class _HomeState extends State<Home> {
                               borderRadius: BorderRadius.circular(30),
                             ),
                             alignment: Alignment.center,
-                            child: ConsistencyCalendar(),
+                            child: const ConsistencyCalendar(),
                           ),
 
+                          // Average Completion
                           Container(
                             height: MediaQuery.of(context).size.height * 0.40,
                             width: MediaQuery.of(context).size.width * 0.27,
@@ -395,128 +397,7 @@ class _HomeState extends State<Home> {
                               borderRadius: BorderRadius.circular(30),
                             ),
                             alignment: Alignment.center,
-                            child: Padding(
-                              padding: EdgeInsets.fromLTRB(
-                                MediaQuery.of(context).size.width * 0.0125,
-                                MediaQuery.of(context).size.height * 0.02,
-                                MediaQuery.of(context).size.width * 0.015,
-                                MediaQuery.of(context).size.height * 0.02,
-                              ),
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Column(
-                                    children: [
-                                      Row(
-                                        children: [
-                                          SizedBox(
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                0.01,
-                                          ),
-                                          SizedBox(
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                0.19,
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                0.05,
-                                            child: const AutoSizeText(
-                                              "Average Completion",
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.w400,
-                                                fontSize: 200,
-                                              ),
-                                              textAlign: TextAlign.left,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      SizedBox(
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.04),
-                                      const Text("This Week"),
-                                      const SizedBox(height: 10),
-                                      LinearProgressIndicator(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .primary,
-                                        backgroundColor: Theme.of(context)
-                                            .scaffoldBackgroundColor,
-                                        value: workoutDatabase
-                                            .getCurrentWeekCompletion(),
-                                        minHeight: 10,
-                                        borderRadius:
-                                            BorderRadius.circular(100),
-                                      ),
-                                    ],
-                                  ),
-                                  Column(
-                                    children: [
-                                      const Text("Previous 4 Weeks"),
-                                      const SizedBox(height: 10),
-                                      LinearProgressIndicator(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .primary,
-                                        backgroundColor: Theme.of(context)
-                                            .scaffoldBackgroundColor,
-                                        value: workoutDatabase
-                                            .getPreviousWeekPercentageCompletion(
-                                                4),
-                                        minHeight: 10,
-                                        borderRadius:
-                                            BorderRadius.circular(100),
-                                      ),
-                                    ],
-                                  ),
-                                  Column(
-                                    children: [
-                                      const Text("Past 12 Weeks"),
-                                      const SizedBox(height: 10),
-                                      LinearProgressIndicator(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .primary,
-                                        backgroundColor: Theme.of(context)
-                                            .scaffoldBackgroundColor,
-                                        value: workoutDatabase
-                                            .getPreviousWeekPercentageCompletion(
-                                                12),
-                                        minHeight: 10,
-                                        borderRadius:
-                                            BorderRadius.circular(100),
-                                      ),
-                                    ],
-                                  ),
-                                  Column(
-                                    children: [
-                                      const Text("Past 36 Weeks"),
-                                      const SizedBox(height: 10),
-                                      LinearProgressIndicator(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .primary,
-                                        backgroundColor: Theme.of(context)
-                                            .scaffoldBackgroundColor,
-                                        value: workoutDatabase
-                                            .getPreviousWeekPercentageCompletion(
-                                                36),
-                                        minHeight: 10,
-                                        borderRadius:
-                                            BorderRadius.circular(100),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
+                            child: const AverageCompletionDisplay(),
                           ),
 
                           // Last Workout
