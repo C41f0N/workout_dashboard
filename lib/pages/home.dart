@@ -402,7 +402,11 @@ class _HomeState extends State<Home> {
                               borderRadius: BorderRadius.circular(30),
                             ),
                             alignment: Alignment.center,
-                            child: const AverageCompletionDisplay(),
+                            child: FileAvailabilityWrapper(
+                              fileAvailable:
+                                  workoutDatabase.getStoredFilePath() != null,
+                              child: const AverageCompletionDisplay(),
+                            ),
                           ),
 
                           // Last Workout

@@ -26,6 +26,27 @@ class _SettingsPageState extends State<SettingsPage> {
               children: [
                 ElevatedButton(
                   onPressed: () {
+                    workoutDatabase.removeFile();
+                  },
+                  style: ElevatedButton.styleFrom(
+                    foregroundColor: Colors.red,
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 25, horizontal: 40),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                  ),
+                  child: const AutoSizeText(
+                    "Remove Log File",
+                    maxLines: 1,
+                    style: TextStyle(
+                      fontSize: 20,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: () {
                     workoutDatabase.getFile();
                   },
                   style: ElevatedButton.styleFrom(

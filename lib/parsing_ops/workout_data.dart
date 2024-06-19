@@ -39,16 +39,28 @@ class WorkoutData extends ChangeNotifier {
     notifyListeners();
   }
 
+  void removeFile() {
+    workoutLogFile = null;
+    persistLogFile();
+    notifyListeners();
+  }
+
   // Function to persist the log into device storage
   void persistLogFile() {
     if (workoutLogFile != null) {
       _workoutDatabase.put("workout_log_file_path", workoutLogFile!.path);
+    } else {
+      _workoutDatabase.put("workout_log_file_path", null);
     }
   }
 
   // Function to load the log from the device storage
   void loadPersistedLogFile() {
-    workoutLogFile = XFile(_workoutDatabase.get("workout_log_file_path"));
+    if (_workoutDatabase.get("workout_log_file_path") != null) {
+      workoutLogFile = XFile(_workoutDatabase.get("workout_log_file_path"));
+    } else {
+      workoutLogFile = null;
+    }
   }
 
   // Function to read data from file
