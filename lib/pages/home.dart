@@ -9,6 +9,7 @@ import 'package:workout_dashboard/pages/settings.dart';
 import 'package:workout_dashboard/parsing_ops/workout_data.dart';
 import 'package:workout_dashboard/widgets/average_completion_display.dart';
 import 'package:workout_dashboard/widgets/consistency_calender.dart';
+import 'package:workout_dashboard/widgets/file_availability_wrapper.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -385,7 +386,11 @@ class _HomeState extends State<Home> {
                               borderRadius: BorderRadius.circular(30),
                             ),
                             alignment: Alignment.center,
-                            child: const ConsistencyCalendar(),
+                            child: FileAvailabilityWrapper(
+                              fileAvailable:
+                                  workoutDatabase.getStoredFilePath() != null,
+                              child: const ConsistencyCalendar(),
+                            ),
                           ),
 
                           // Average Completion
