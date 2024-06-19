@@ -7,6 +7,7 @@ import 'package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart';
 import 'package:provider/provider.dart';
 import 'package:workout_dashboard/pages/settings.dart';
 import 'package:workout_dashboard/parsing_ops/workout_data.dart';
+import 'package:workout_dashboard/widgets/consistency_calender.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -18,9 +19,10 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
-    return Consumer<WorkoutData>(builder: (context, workoutDatabase, widget) {
-      return Scaffold(
-        body: FutureBuilder(
+    return Consumer<WorkoutData>(
+      builder: (context, workoutDatabase, widget) {
+        return Scaffold(
+          body: FutureBuilder(
             future: workoutDatabase.parseData(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
@@ -382,24 +384,7 @@ class _HomeState extends State<Home> {
                               borderRadius: BorderRadius.circular(30),
                             ),
                             alignment: Alignment.center,
-                            child: HeatMapCalendar(
-                              colorMode: ColorMode.opacity,
-                              showColorTip: false,
-                              size: min(
-                                MediaQuery.of(context).size.height * 0.47 * 0.6,
-                                MediaQuery.of(context).size.width * 0.27 * 0.1,
-                              ),
-                              colorsets: const {10: Colors.green},
-                              datasets: <DateTime, int>{
-                                for (DateTime date
-                                    in workoutDatabase.getWorkoutDates())
-                                  date: 1
-                              },
-                              borderRadius: 100,
-                              defaultColor:
-                                  Theme.of(context).colorScheme.surface,
-                              textColor: Colors.white,
-                            ),
+                            child: ConsistencyCalendar(),
                           ),
 
                           Container(
@@ -583,8 +568,10 @@ class _HomeState extends State<Home> {
                   child: CircularProgressIndicator(),
                 );
               }
-            }),
-      );
-    });
+            },
+          ),
+        );
+      },
+    );
   }
 }
