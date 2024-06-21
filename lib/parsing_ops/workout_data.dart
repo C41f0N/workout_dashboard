@@ -75,7 +75,6 @@ class WorkoutData extends ChangeNotifier {
   // Parse the file data and store it (returns true when parsing complete)
   Future<bool> parseData() async {
     await readFile();
-    print("parsing");
 
     List<String> workoutRawStrings = rawWorkoutLogString.split("\n\n");
 
@@ -194,7 +193,6 @@ class WorkoutData extends ChangeNotifier {
       // Check each day of the week
       for (int j = 0; j < 7; j++) {
         dayToCheck = dayToCheck.subtract(const Duration(days: 1));
-        print("Checking day: $j, $dayToCheck");
         if (workoutDates.contains(dayToCheck)) {
           completedInWeek++;
         }
@@ -206,6 +204,7 @@ class WorkoutData extends ChangeNotifier {
     return completionPercentage;
   }
 
+  // Get current week percentage completion
   double getCurrentWeekCompletion() {
     List<DateTime> workoutDates = getWorkoutDates();
 
@@ -229,5 +228,20 @@ class WorkoutData extends ChangeNotifier {
     }
 
     return completedInWeek / 5;
+  }
+
+  // Get all recorded excercise names
+  List<String> getAllRecordedExcerciseNames() {
+    Set<String> excerciseNames = {};
+
+    for (int i = 0; i < workouts.length; i++) {
+      for (int j = 0; j < workouts[i].excercises.length; j++) {
+        excerciseNames.add(workouts[i].excercises[j].name);
+      }
+    }
+
+    print(excerciseNames);
+    print(workouts.length);
+    return excerciseNames.toList();
   }
 }

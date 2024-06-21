@@ -1,15 +1,13 @@
-import 'dart:math';
-
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart';
 import 'package:provider/provider.dart';
 import 'package:workout_dashboard/pages/settings.dart';
 import 'package:workout_dashboard/parsing_ops/workout_data.dart';
 import 'package:workout_dashboard/widgets/average_completion_display.dart';
 import 'package:workout_dashboard/widgets/consistency_calender.dart';
 import 'package:workout_dashboard/widgets/file_availability_wrapper.dart';
+import 'package:workout_dashboard/widgets/reps_intensity_history.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -264,7 +262,7 @@ class _HomeState extends State<Home> {
                             ),
                           ),
 
-                          // Workout Intensity History
+                          // Reps Intensity History
                           Container(
                             height: MediaQuery.of(context).size.height * 0.32,
                             width: MediaQuery.of(context).size.width * 0.57,
@@ -273,103 +271,10 @@ class _HomeState extends State<Home> {
                               borderRadius: BorderRadius.circular(30),
                             ),
                             alignment: Alignment.center,
-                            child: Padding(
-                              padding: EdgeInsets.fromLTRB(
-                                MediaQuery.of(context).size.width * 0.025,
-                                MediaQuery.of(context).size.height * 0.04,
-                                MediaQuery.of(context).size.width * 0.03,
-                                MediaQuery.of(context).size.height * 0.04,
-                              ),
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      SizedBox(
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.23,
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.05,
-                                        child: const AutoSizeText(
-                                          "Set History",
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.w400,
-                                            fontSize: 200,
-                                          ),
-                                          textAlign: TextAlign.left,
-                                        ),
-                                      ),
-                                      DropdownButton(
-                                        items: const [
-                                          DropdownMenuItem(
-                                            child: Text("Dumbell Curls"),
-                                          )
-                                        ],
-                                        onChanged: (x) {},
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: MediaQuery.of(context).size.height *
-                                        0.17,
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.5,
-                                    child: LineChart(
-                                      LineChartData(
-                                        gridData: const FlGridData(show: false),
-                                        borderData: FlBorderData(
-                                          border: const Border(
-                                            left: BorderSide(),
-                                          ),
-                                        ),
-                                        titlesData: const FlTitlesData(
-                                          topTitles: AxisTitles(),
-                                          bottomTitles: AxisTitles(),
-                                          rightTitles: AxisTitles(),
-                                        ),
-                                        lineBarsData: [
-                                          LineChartBarData(
-                                            isCurved: true,
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .primary,
-                                            barWidth: 5,
-                                            curveSmoothness: 0.35,
-                                            spots: [
-                                              const FlSpot(0, 1),
-                                              const FlSpot(1, 1.5),
-                                              const FlSpot(2, 0.7),
-                                              const FlSpot(3, 0.6),
-                                              const FlSpot(4, 0.9),
-                                              const FlSpot(5, 0.5),
-                                              const FlSpot(6, 1.5),
-                                              const FlSpot(7, 0.7),
-                                              const FlSpot(8, 0.6),
-                                              const FlSpot(9, 0.9),
-                                              const FlSpot(10, 0.3),
-                                              const FlSpot(11, 0.6),
-                                              const FlSpot(12, 0.7),
-                                              const FlSpot(13, 0.6),
-                                              const FlSpot(14, 0.9),
-                                              const FlSpot(15, 0.3),
-                                              const FlSpot(16, 0.4),
-                                              const FlSpot(17, 0.7),
-                                              const FlSpot(18, 0.6),
-                                              const FlSpot(19, 0.9),
-                                            ],
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
+                            child: FileAvailabilityWrapper(
+                              fileAvailable:
+                                  workoutDatabase.getStoredFilePath() != null,
+                              child: RepsIntensityHistory(),
                             ),
                           ),
                         ],
