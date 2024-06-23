@@ -41,6 +41,7 @@ class WorkoutData extends ChangeNotifier {
 
   void removeFile() {
     workoutLogFile = null;
+    workouts = [];
     persistLogFile();
     notifyListeners();
   }
@@ -75,6 +76,8 @@ class WorkoutData extends ChangeNotifier {
   // Parse the file data and store it (returns true when parsing complete)
   Future<bool> parseData() async {
     await readFile();
+
+    workouts = [];
 
     List<String> workoutRawStrings = rawWorkoutLogString.split("\n\n");
 
