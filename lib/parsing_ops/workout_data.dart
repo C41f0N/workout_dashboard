@@ -248,6 +248,17 @@ class WorkoutData extends ChangeNotifier {
     return excerciseNames.toList();
   }
 
+  // Get all recorded workout names
+  List<String> getAllRecordedWorkoutNames() {
+    Set<String> workoutNames = {};
+
+    for (int i = 0; i < workouts.length; i++) {
+      workoutNames.add(workouts[i].name);
+    }
+
+    return workoutNames.toList();
+  }
+
   // Get Reps History for an excercise
   Map<DateTime, double> getRepsHistory(String excerciseName) {
     Map<DateTime, double> repsHistory = {};
@@ -267,5 +278,40 @@ class WorkoutData extends ChangeNotifier {
     }
 
     return repsHistory;
+  }
+
+  // Get density for workouts done in history
+  Map<String, double> getWorkoutsDensity(int weeks) {
+    Map<String, int> workoutCount = {};
+
+    DateTime thresholdDate = DateTime(
+      DateTime.now().year,
+      DateTime.now().month,
+      DateTime.now().day,
+    ).subtract(Duration(days: weeks * 7));
+
+    int totalWorkouts = 0;
+
+    for (int i = 0; i < workouts.length; i++) {
+      if (workouts[i].date.isAfter(thresholdDate)) {
+        totalWorkouts++;
+
+        if (!workoutCount.keys.contains(workouts[i].name)) {
+          workoutCount[workouts[i].name] = 0;
+        } else {
+          workoutCount[workouts[i].name] = workoutCount[workouts[i].name]! + 1;
+        }
+      }
+    }
+
+    Map<String, double> workoutDensity = {};
+
+    for (int i = 0; i < workoutCount.keys.length; i++) {
+      workoutDensity[workoutCount.keys.toList()[i]] =
+          workoutCount[workoutCount.keys.toList()[i]]!.toDouble() /
+              totalWorkouts;
+    }
+
+    return workoutDensity;
   }
 }
