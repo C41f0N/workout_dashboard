@@ -17,8 +17,12 @@ class RepsIntensityHistoryState extends State<RepsIntensityHistory> {
   @override
   Widget build(BuildContext context) {
     return Consumer<WorkoutData>(builder: (context, workoutDatabase, child) {
-      widget.excerciseName ??=
-          workoutDatabase.workouts.last.excercises.last.name;
+      if (workoutDatabase.workouts.isNotEmpty) {
+        widget.excerciseName ??=
+            workoutDatabase.workouts.last.excercises.last.name;
+      } else {
+        widget.excerciseName = "";
+      }
 
       Map<DateTime, double> repsHistory =
           workoutDatabase.getRepsHistory(widget.excerciseName ?? "");
