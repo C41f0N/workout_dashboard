@@ -244,4 +244,25 @@ class WorkoutData extends ChangeNotifier {
     print(workouts.length);
     return excerciseNames.toList();
   }
+
+  // Get Reps History for an excercise
+  Map<DateTime, double> getRepsHistory(String excerciseName) {
+    Map<DateTime, double> repsHistory = {};
+
+    // Check each workout
+    for (int i = 0; i < workouts.length; i++) {
+      // Get excercise index
+      int excerciseIndex = workouts[i]
+          .excercises
+          .indexWhere((Excercise excercise) => excercise.name == excerciseName);
+
+      if (excerciseIndex != -1) {
+        // Add the reps to the corresponding date
+        repsHistory[workouts[i].date] =
+            workouts[i].excercises[excerciseIndex].repsPerSet;
+      }
+    }
+
+    return repsHistory;
+  }
 }
