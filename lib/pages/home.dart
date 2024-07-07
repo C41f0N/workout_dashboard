@@ -1,5 +1,4 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:workout_dashboard/pages/settings.dart';
@@ -7,6 +6,7 @@ import 'package:workout_dashboard/parsing_ops/workout_data.dart';
 import 'package:workout_dashboard/widgets/average_completion_display.dart';
 import 'package:workout_dashboard/widgets/consistency_calender.dart';
 import 'package:workout_dashboard/widgets/file_availability_wrapper.dart';
+import 'package:workout_dashboard/widgets/log_editor.dart';
 import 'package:workout_dashboard/widgets/reps_intensity_history.dart';
 import 'package:workout_dashboard/widgets/workout_history_density.dart';
 
@@ -52,7 +52,8 @@ class _HomeState extends State<Home> {
                                 onPressed: () {
                                   Navigator.of(context).push(
                                     MaterialPageRoute(
-                                      builder: (context) => SettingsPage(),
+                                      builder: (context) =>
+                                          const SettingsPage(),
                                     ),
                                   );
                                 },
@@ -144,39 +145,11 @@ class _HomeState extends State<Home> {
                             alignment: Alignment.center,
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  SizedBox(
-                                    width: MediaQuery.of(context).size.width *
-                                        0.23,
-                                    height: MediaQuery.of(context).size.height *
-                                        0.1,
-                                    child: const AutoSizeText(
-                                      "Last Workout",
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w400,
-                                        fontSize: 200,
-                                      ),
-                                      textAlign: TextAlign.left,
-                                    ),
-                                  ),
-                                  const Text(
-                                    '''
-            Squats (5-kg weight) - 25x3
-            Lunges - 20x3
-            Calf Raises (5-kg weight) - 35x3
-                          ''',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w300,
-                                      fontSize: 20,
-                                    ),
-                                    textAlign: TextAlign.left,
-                                  ),
-                                  const SizedBox(),
-                                ],
-                              ),
+                              child: FileAvailabilityWrapper(
+                                  fileAvailable:
+                                      workoutDatabase.getStoredFilePath() !=
+                                          null,
+                                  child: LogEditor()),
                             ),
                           ),
                         ],
