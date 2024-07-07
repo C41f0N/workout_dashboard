@@ -7,17 +7,18 @@ import 'package:workout_dashboard/parsing_ops/workout_data.dart';
 class WorkoutHistoryDensity extends StatefulWidget {
   WorkoutHistoryDensity({super.key});
 
+  int densityThresholdWeeks = 5;
+
   @override
   State<WorkoutHistoryDensity> createState() => _WorkoutHistoryDensityState();
-
-  int? densityThresholdWeeks;
 }
 
 class _WorkoutHistoryDensityState extends State<WorkoutHistoryDensity> {
   @override
   Widget build(BuildContext context) {
-    return Consumer<WorkoutData>(builder: (context, workoutData, widget) {
-      Map<String, double> workoutDensity = workoutData.getWorkoutsDensity(5);
+    return Consumer<WorkoutData>(builder: (context, workoutData, widget1) {
+      Map<String, double> workoutDensity =
+          workoutData.getWorkoutsDensity(widget.densityThresholdWeeks);
 
       return Padding(
         padding: EdgeInsets.fromLTRB(
@@ -34,7 +35,20 @@ class _WorkoutHistoryDensityState extends State<WorkoutHistoryDensity> {
               children: [
                 SizedBox(
                   width: MediaQuery.of(context).size.width * 0.37 * 0.3,
-                  child: Slider(value: 0.5, onChanged: (x) {}),
+                  child: Column(
+                    children: [
+                      Text("${widget.densityThresholdWeeks} Weeks"),
+                      Slider(
+                          secondaryActiveColor: Colors.grey[200],
+                          value: widget.densityThresholdWeeks / 36,
+                          onChanged: (newValue) {
+                            setState(() {
+                              widget.densityThresholdWeeks =
+                                  (newValue * 36).round();
+                            });
+                          }),
+                    ],
+                  ),
                 ),
                 Row(
                   children: [
