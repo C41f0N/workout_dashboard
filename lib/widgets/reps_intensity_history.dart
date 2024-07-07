@@ -65,7 +65,6 @@ class RepsIntensityHistoryState extends State<RepsIntensityHistory> {
                       )
                       .toList(),
                   onChanged: (excerciseName) {
-                    print("Changing to $excerciseName");
                     setState(() {
                       widget.excerciseName = excerciseName;
                     });

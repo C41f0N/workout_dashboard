@@ -242,9 +242,6 @@ class WorkoutData extends ChangeNotifier {
         excerciseNames.add(workouts[i].excercises[j].name);
       }
     }
-
-    print(excerciseNames);
-    print(workouts.length);
     return excerciseNames.toList();
   }
 
