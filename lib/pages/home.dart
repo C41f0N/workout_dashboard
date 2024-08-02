@@ -134,7 +134,7 @@ class _HomeState extends State<Home> {
                             ),
                           ),
 
-                          // Last Workout
+                          // Log Editor
                           Container(
                             height: MediaQuery.of(context).size.height * 0.40,
                             width: MediaQuery.of(context).size.width * 0.37,
@@ -146,10 +146,10 @@ class _HomeState extends State<Home> {
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: FileAvailabilityWrapper(
-                                  fileAvailable:
-                                      workoutDatabase.getStoredFilePath() !=
-                                          null,
-                                  child: LogEditor()),
+                                fileAvailable:
+                                    workoutDatabase.getStoredFilePath() != null,
+                                child: LogEditor(),
+                              ),
                             ),
                           ),
                         ],

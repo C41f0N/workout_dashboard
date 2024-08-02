@@ -16,30 +16,35 @@ class _LogEditorState extends State<LogEditor> {
   @override
   Widget build(BuildContext context) {
     return Consumer<WorkoutData>(builder: (context, workoutData, widget1) {
-      widget.logController.text =
-          workoutData.rawWorkoutLogString.split("\n\n").last;
+      widget.logController.text = workoutData.rawWorkoutLogString;
 
-      return Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          AutoSizeText(
-            "Last Workout",
-            style: TextStyle(
-              fontWeight: FontWeight.w400,
-              fontSize: 40,
+      return Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const AutoSizeText(
+              "Log Editor",
+              style: TextStyle(
+                fontWeight: FontWeight.w400,
+                fontSize: 35,
+              ),
+              textAlign: TextAlign.right,
             ),
-            textAlign: TextAlign.right,
-          ),
-          TextField(
-            controller: widget.logController,
-            maxLines: null,
-            readOnly: true,
-            decoration: InputDecoration(
-              fillColor: Colors.grey[900],
-              filled: true,
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.28,
+              child: TextField(
+                controller: widget.logController,
+                maxLines: null,
+                decoration: InputDecoration(
+                  fillColor: Colors.grey[900],
+                  filled: true,
+                ),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       );
     });
   }
