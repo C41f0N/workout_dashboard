@@ -1,3 +1,3 @@
 # workout_dashboard
 
-A desktop app customized to my home workouts
+A desktop app customized to monitor my home workouts.
