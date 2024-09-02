@@ -37,6 +37,9 @@ class _LogEditorState extends State<LogEditor> {
               child: TextField(
                 controller: widget.logController,
                 maxLines: null,
+                onChanged: (String updatedData) {
+                  workoutData.updateLogRaw(updatedData);
+                },
                 decoration: InputDecoration(
                   fillColor: Colors.grey[900],
                   filled: true,

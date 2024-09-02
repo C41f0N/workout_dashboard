@@ -23,7 +23,6 @@ class RepsIntensityHistoryState extends State<RepsIntensityHistory> {
       } else {
         widget.excerciseName = "";
       }
-      print(workoutDatabase.workouts.last.date);
 
       Map<DateTime, double> repsHistory =
           workoutDatabase.getRepsHistory(widget.excerciseName ?? "");

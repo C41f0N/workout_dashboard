@@ -1,12 +1,37 @@
+import 'dart:async';
+import 'dart:typed_data';
+
 import 'package:file_selector/file_selector.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:workout_dashboard/parsing_ops/excercise.dart';
 import 'package:workout_dashboard/parsing_ops/workout.dart';
 
+// TODO Functions to schedule writing to file
+// Function to write to file when closing the app
+
 class WorkoutData extends ChangeNotifier {
   final _workoutDatabase = Hive.box("WORKOUT_DATABASE");
 
+  WorkoutData() {
+    final writeTimer = Timer.periodic(
+      const Duration(seconds: 1),
+      (timer) async {
+        print("Timer running");
+        if (writeAt.isBefore(DateTime.now()) && fileChanged) {
+          // Call write function
+          print("Writing");
+          await writeToFile();
+          writeAt = DateTime.now().add(const Duration(seconds: 5));
+          fileChanged = false;
+          notifyListeners();
+        }
+      },
+    );
+  }
+
+  DateTime writeAt = DateTime.now().add(const Duration(seconds: 5));
+  bool fileChanged = false;
   List<Workout> workouts = [];
   XFile? workoutLogFile;
   String rawWorkoutLogString = "";
@@ -123,11 +148,30 @@ class WorkoutData extends ChangeNotifier {
 
         workouts.add(Workout(workoutDate, workoutName, excercises));
       } catch (e) {
-        print("Some exception occoured : ${e.toString()}");
+        // print("Some exception occoured : ${e.toString()}");
       }
     }
 
     return true;
+  }
+
+  // Write updated raw string to file
+  Future<void> writeToFile() async {
+    if (workoutLogFile != null) {
+      final Uint8List fileData =
+          Uint8List.fromList(rawWorkoutLogString.codeUnits);
+      const String mimeType = 'text/plain';
+      final XFile textFile = XFile.fromData(fileData,
+          mimeType: mimeType, name: workoutLogFile!.name);
+      await textFile.saveTo(workoutLogFile!.path);
+    }
+  }
+
+  // Update raw string data
+  Future<void> updateLogRaw(String updatedLogString) async {
+    rawWorkoutLogString = updatedLogString;
+    fileChanged = true;
+    print("Changed string");
   }
 
   // Print all recorded workouts
