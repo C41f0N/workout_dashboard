@@ -7,8 +7,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:workout_dashboard/parsing_ops/excercise.dart';
 import 'package:workout_dashboard/parsing_ops/workout.dart';
 
-// TODO Functions to schedule writing to file
-// Function to write to file when closing the app
+int secondsToWaitBeforeChange = 5;
 
 class WorkoutData extends ChangeNotifier {
   final _workoutDatabase = Hive.box("WORKOUT_DATABASE");
@@ -17,12 +16,12 @@ class WorkoutData extends ChangeNotifier {
     final writeTimer = Timer.periodic(
       const Duration(seconds: 1),
       (timer) async {
-        print("Timer running");
         if (writeAt.isBefore(DateTime.now()) && fileChanged) {
           // Call write function
-          print("Writing");
+
           await writeToFile();
-          writeAt = DateTime.now().add(const Duration(seconds: 5));
+          writeAt =
+              DateTime.now().add(Duration(seconds: secondsToWaitBeforeChange));
           fileChanged = false;
           notifyListeners();
         }
@@ -30,7 +29,8 @@ class WorkoutData extends ChangeNotifier {
     );
   }
 
-  DateTime writeAt = DateTime.now().add(const Duration(seconds: 5));
+  DateTime writeAt =
+      DateTime.now().add(Duration(seconds: secondsToWaitBeforeChange));
   bool fileChanged = false;
   List<Workout> workouts = [];
   XFile? workoutLogFile;
@@ -156,7 +156,11 @@ class WorkoutData extends ChangeNotifier {
   }
 
   // Write updated raw string to file
-  Future<void> writeToFile() async {
+  Future<void> writeToFile({data}) async {
+    if (data != null) {
+      rawWorkoutLogString = data;
+    }
+
     if (workoutLogFile != null) {
       final Uint8List fileData =
           Uint8List.fromList(rawWorkoutLogString.codeUnits);
@@ -164,14 +168,17 @@ class WorkoutData extends ChangeNotifier {
       final XFile textFile = XFile.fromData(fileData,
           mimeType: mimeType, name: workoutLogFile!.name);
       await textFile.saveTo(workoutLogFile!.path);
+
+      fileChanged = false;
     }
+
+    notifyListeners();
   }
 
   // Update raw string data
   Future<void> updateLogRaw(String updatedLogString) async {
     rawWorkoutLogString = updatedLogString;
     fileChanged = true;
-    print("Changed string");
   }
 
   // Print all recorded workouts
@@ -354,5 +361,14 @@ class WorkoutData extends ChangeNotifier {
     }
 
     return workoutDensity;
+  }
+
+  void registerFileChange() {
+    fileChanged = true;
+    writeAt = DateTime.now().add(Duration(seconds: secondsToWaitBeforeChange));
+  }
+
+  void setWorkoutLogFileRawString(String rawString) {
+    rawWorkoutLogString = rawString;
   }
 }

@@ -102,7 +102,7 @@ class RepsIntensityHistoryState extends State<RepsIntensityHistory> {
                       isCurved: true,
                       color: Theme.of(context).colorScheme.primary,
                       barWidth: 5,
-                      curveSmoothness: 0.0,
+                      curveSmoothness: 0.2,
                       spots: List.generate(repsHistory.length, (i) {
                         // Getting an double value for dateTime so that it can be passed into FlSpot
                         double xValue = (repsHistory.keys.toList())[i]
