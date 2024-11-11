@@ -6,6 +6,7 @@ import 'package:workout_dashboard/parsing_ops/workout_data.dart';
 import 'package:workout_dashboard/widgets/average_completion_display.dart';
 import 'package:workout_dashboard/widgets/consistency_calender.dart';
 import 'package:workout_dashboard/widgets/file_availability_wrapper.dart';
+import 'package:workout_dashboard/widgets/last_workout_display.dart';
 import 'package:workout_dashboard/widgets/log_editor.dart';
 import 'package:workout_dashboard/widgets/reps_intensity_history.dart';
 import 'package:workout_dashboard/widgets/workout_history_density.dart';
@@ -121,7 +122,7 @@ class _HomeState extends State<Home> {
                           // Average Completion
                           Container(
                             height: MediaQuery.of(context).size.height * 0.40,
-                            width: MediaQuery.of(context).size.width * 0.27,
+                            width: MediaQuery.of(context).size.width * 0.37,
                             decoration: BoxDecoration(
                               color: const Color.fromARGB(255, 24, 24, 24),
                               borderRadius: BorderRadius.circular(30),
@@ -137,7 +138,7 @@ class _HomeState extends State<Home> {
                           // Log Editor
                           Container(
                             height: MediaQuery.of(context).size.height * 0.40,
-                            width: MediaQuery.of(context).size.width * 0.37,
+                            width: MediaQuery.of(context).size.width * 0.27,
                             decoration: BoxDecoration(
                               color: Theme.of(context).colorScheme.surface,
                               borderRadius: BorderRadius.circular(30),
@@ -148,7 +149,7 @@ class _HomeState extends State<Home> {
                               child: FileAvailabilityWrapper(
                                 fileAvailable:
                                     workoutDatabase.getStoredFilePath() != null,
-                                child: LogEditor(),
+                                child: const LastWorkoutDisplay(),
                               ),
                             ),
                           ),

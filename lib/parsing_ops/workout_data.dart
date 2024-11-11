@@ -363,6 +363,10 @@ class WorkoutData extends ChangeNotifier {
     return workoutDensity;
   }
 
+  Workout? getLastWorkout() {
+    return workouts.isNotEmpty ? workouts.last : null;
+  }
+
   void registerFileChange() {
     fileChanged = true;
     writeAt = DateTime.now().add(Duration(seconds: secondsToWaitBeforeChange));

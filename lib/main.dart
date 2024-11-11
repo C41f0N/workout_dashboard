@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
               surface: Color.fromARGB(255, 24, 24, 24),
             ),
             scaffoldBackgroundColor: Colors.black),
-        home: Home(),
+        home: const Home(),
       ),
     );
   }
