@@ -49,7 +49,7 @@ class RepsIntensityHistoryState extends State<RepsIntensityHistory> {
                     width: MediaQuery.of(context).size.width * 0.23,
                     height: MediaQuery.of(context).size.height * 0.05,
                     child: const AutoSizeText(
-                      "Set History",
+                      "Reps History",
                       style: TextStyle(
                         fontWeight: FontWeight.w400,
                         fontSize: 200,
@@ -129,6 +129,7 @@ class RepsIntensityHistoryState extends State<RepsIntensityHistory> {
                     )
                   ],
                 ),
+                duration: const Duration(milliseconds: 250),
               ),
             ),
           ],
