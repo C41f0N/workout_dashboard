@@ -26,39 +26,77 @@ class _LastWorkoutDisplayState extends State<LastWorkoutDisplay> {
           MediaQuery.of(context).size.height * 0.02,
         ),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Row(
-                  children: [
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.01,
-                    ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.19,
-                      height: MediaQuery.of(context).size.height * 0.05,
-                      child: const AutoSizeText(
-                        "Last Workout",
-                        style: TextStyle(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 200,
-                        ),
-                        textAlign: TextAlign.left,
+                SizedBox(
+                  child: Container(
+                    alignment: Alignment.center,
+                    // width: MediaQuery.of(context).size.width * 0.19,
+                    height: MediaQuery.of(context).size.height * 0.05,
+                    child: const AutoSizeText(
+                      "Last Workout",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 200,
                       ),
+                      textAlign: TextAlign.left,
                     ),
-                  ],
+                  ),
                 ),
-                Text(lastWorkout != null ? lastWorkout.name : ""),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: lastWorkout != null
-                      ? lastWorkout.excercises.map((Excercise excercise) {
-                          return Container(
-                            child: Text(excercise.name),
-                          );
-                        }).toList() as List<Widget>
-                      : [],
+                SizedBox(
+                  child: Container(
+                    alignment: Alignment.center,
+                    height: MediaQuery.of(context).size.height * 0.03,
+                    child: AutoSizeText(
+                      lastWorkout != null ? lastWorkout.name : "",
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 200,
+                      ),
+                      textAlign: TextAlign.left,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.01,
+                ),
+                Container(
+                  height: MediaQuery.of(context).size.height * 0.24,
+                  child: ListView.builder(
+                      itemCount: lastWorkout!.excercises.length,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 4.0),
+                          child: Container(
+                            color: Colors.black,
+                            height: 50,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                // Name
+                                Text(lastWorkout.excercises[index].name),
+
+                                // Reps per set
+                                Text(lastWorkout.excercises[index].repsPerSet %
+                                            1 ==
+                                        0
+                                    ? lastWorkout.excercises[index].repsPerSet
+                                        .toInt()
+                                        .toString()
+                                    : lastWorkout.excercises[index].repsPerSet
+                                        .toString()),
+
+                                // Sets
+                                Text(lastWorkout.excercises[index].sets
+                                    .toString()),
+                              ],
+                            ),
+                          ),
+                        );
+                      }),
                 )
               ],
             ),
