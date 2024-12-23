@@ -23,56 +23,68 @@ class _WorkoutHistoryDensityState extends State<WorkoutHistoryDensity> {
       return Padding(
         padding: EdgeInsets.fromLTRB(
           MediaQuery.of(context).size.width * 0.02,
-          MediaQuery.of(context).size.height * 0.05,
+          MediaQuery.of(context).size.height * 0.025,
           MediaQuery.of(context).size.width * 0.02,
-          MediaQuery.of(context).size.height * 0.05,
+          MediaQuery.of(context).size.height * 0.025,
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.37 * 0.3,
-                  child: Column(
-                    children: [
-                      Text("${widget.densityThresholdWeeks} Weeks"),
-                      Slider(
-                          secondaryActiveColor: Colors.grey[200],
-                          value: widget.densityThresholdWeeks / 36,
-                          onChanged: (newValue) {
-                            setState(() {
-                              widget.densityThresholdWeeks =
-                                  (newValue * 36).round();
-                            });
-                          }),
-                    ],
-                  ),
-                ),
-                Row(
-                  children: [
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.37 * 0.5,
-                      height: MediaQuery.of(context).size.height * 0.045,
-                      child: const AutoSizeText(
-                        "Workout Density",
-                        style: TextStyle(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 200,
-                        ),
-                        textAlign: TextAlign.right,
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.08,
+              width: MediaQuery.of(context).size.width * 0.32,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.2,
+                    child: SizedBox(
+                      // color: Colors.red,
+                      child: Row(
+                        children: [
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.1,
+                            child: Slider(
+                                value: (widget.densityThresholdWeeks - 1) / 36,
+                                onChanged: (newValue) {
+                                  setState(() {
+                                    widget.densityThresholdWeeks =
+                                        (newValue * 36).round() + 1;
+                                  });
+                                }),
+                          ),
+                          Text(widget.densityThresholdWeeks == 1
+                              ? "1 Week"
+                              : "${widget.densityThresholdWeeks} Weeks"),
+                        ],
                       ),
                     ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.01,
-                    ),
-                  ],
-                )
-              ],
+                  ),
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.1,
+                        height: MediaQuery.of(context).size.height * 0.045,
+                        child: const AutoSizeText(
+                          "Workout Density",
+                          style: TextStyle(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 200,
+                          ),
+                          textAlign: TextAlign.right,
+                        ),
+                      ),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.01,
+                      ),
+                    ],
+                  )
+                ],
+              ),
             ),
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.15,
+              height: MediaQuery.of(context).size.height * 0.18,
               width: MediaQuery.of(context).size.width * 0.3,
               child: BarChart(
                 swapAnimationDuration: const Duration(milliseconds: 250),
@@ -89,11 +101,12 @@ class _WorkoutHistoryDensityState extends State<WorkoutHistoryDensity> {
                   titlesData: FlTitlesData(
                     bottomTitles: AxisTitles(
                       sideTitles: SideTitles(
+                          reservedSize: 22,
                           showTitles: true,
                           getTitlesWidget: (index, titleMeta) {
                             List<String> workouts = [
                               "Arms",
-                              "Shoulders/Back",
+                              "Shldr/Back",
                               "Chest",
                               "Abs",
                               "Legs",
