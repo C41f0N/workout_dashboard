@@ -390,4 +390,12 @@ class WorkoutData extends ChangeNotifier {
   String? getSelectedSetHisoryExcercise() {
     return _workoutDatabase.get("SELECTED_SET_HISTORY_WORKOUT");
   }
+
+  void setSelectedDensityDurationWeeks(int weeks) {
+    _workoutDatabase.put("SELECTED_DENSITY_DURATION_WEEKS", weeks);
+  }
+
+  int? getSelectedDensityDurationWeeks() {
+    return _workoutDatabase.get("SELECTED_DENSITY_DURATION_WEEKS");
+  }
 }
