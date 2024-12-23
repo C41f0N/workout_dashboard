@@ -32,66 +32,108 @@ class _LastWorkoutDisplayState extends State<LastWorkoutDisplay> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(
-                  child: Container(
-                    alignment: Alignment.center,
-                    // width: MediaQuery.of(context).size.width * 0.19,
-                    height: MediaQuery.of(context).size.height * 0.05,
-                    child: const AutoSizeText(
-                      "Last Workout",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 200,
+                  height: MediaQuery.of(context).size.height * 0.015,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      SizedBox(
+                        child: Container(
+                          alignment: Alignment.bottomLeft,
+                          width: MediaQuery.of(context).size.width * 0.16,
+                          height: MediaQuery.of(context).size.height * 0.055,
+                          child: const AutoSizeText(
+                            "Last Workout",
+                            style: TextStyle(
+                              fontWeight: FontWeight.w400,
+                              fontSize: 200,
+                            ),
+                            textAlign: TextAlign.left,
+                          ),
+                        ),
                       ),
-                      textAlign: TextAlign.left,
-                    ),
+                      SizedBox(
+                        child: Container(
+                          alignment: Alignment.bottomRight,
+                          height: MediaQuery.of(context).size.height * 0.03,
+                          width: MediaQuery.of(context).size.width * 0.06,
+                          child: AutoSizeText(
+                            lastWorkout != null ? lastWorkout.name : "",
+                            style: const TextStyle(
+                              fontWeight: FontWeight.w400,
+                              fontSize: 200,
+                            ),
+                            textAlign: TextAlign.left,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 SizedBox(
-                  child: Container(
-                    alignment: Alignment.center,
-                    height: MediaQuery.of(context).size.height * 0.03,
-                    child: AutoSizeText(
-                      lastWorkout != null ? lastWorkout.name : "",
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 200,
-                      ),
-                      textAlign: TextAlign.left,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.01,
+                  height: MediaQuery.of(context).size.height * 0.015,
                 ),
                 Container(
-                  height: MediaQuery.of(context).size.height * 0.24,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.black.withOpacity(0.3),
+                  ),
+                  height: MediaQuery.of(context).size.height * 0.26,
                   child: ListView.builder(
                       itemCount: lastWorkout!.excercises.length,
                       itemBuilder: (context, index) {
                         return Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 4.0),
+                          padding: const EdgeInsets.all(4.0),
                           child: Container(
-                            color: Colors.black,
-                            height: 50,
+                            decoration: BoxDecoration(
+                              color: Colors.black.withOpacity(0.5),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            height: 60,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 // Name
-                                Text(lastWorkout.excercises[index].name),
+                                Container(
+                                  alignment: Alignment.center,
+                                  height: 40,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.15,
+                                  child: AutoSizeText(
+                                      lastWorkout.excercises[index].name),
+                                ),
 
                                 // Reps per set
-                                Text(lastWorkout.excercises[index].repsPerSet %
-                                            1 ==
-                                        0
-                                    ? lastWorkout.excercises[index].repsPerSet
-                                        .toInt()
-                                        .toString()
-                                    : lastWorkout.excercises[index].repsPerSet
-                                        .toString()),
+                                Container(
+                                  alignment: Alignment.center,
+                                  height: 40,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.025,
+                                  child: AutoSizeText(lastWorkout
+                                                  .excercises[index]
+                                                  .repsPerSet %
+                                              1 ==
+                                          0
+                                      ? lastWorkout.excercises[index].repsPerSet
+                                          .toInt()
+                                          .toString()
+                                      : lastWorkout.excercises[index].repsPerSet
+                                          .toString()),
+                                ),
 
                                 // Sets
-                                Text(lastWorkout.excercises[index].sets
-                                    .toString()),
+                                Container(
+                                  alignment: Alignment.center,
+                                  height: 40,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.025,
+                                  child: AutoSizeText(lastWorkout
+                                      .excercises[index].sets
+                                      .toString()),
+                                ),
                               ],
                             ),
                           ),
