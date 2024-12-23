@@ -20,6 +20,10 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
+    double borderRadius = 15.0;
+    double paddingHorizontal = 1.02;
+    double paddingVertical = 1.03;
+
     return Consumer<WorkoutData>(
       builder: (context, workoutDatabase, widget) {
         return Scaffold(
@@ -68,11 +72,15 @@ class _HomeState extends State<Home> {
                         children: [
                           // Bar Chart Workout Type Intensity
                           Container(
-                            height: MediaQuery.of(context).size.height * 0.32,
-                            width: MediaQuery.of(context).size.width * 0.37,
+                            height: MediaQuery.of(context).size.height *
+                                0.32 *
+                                paddingVertical,
+                            width: MediaQuery.of(context).size.width *
+                                0.37 *
+                                paddingHorizontal,
                             decoration: BoxDecoration(
                               color: Theme.of(context).colorScheme.surface,
-                              borderRadius: BorderRadius.circular(30),
+                              borderRadius: BorderRadius.circular(borderRadius),
                             ),
                             alignment: Alignment.center,
                             child: FileAvailabilityWrapper(
@@ -84,11 +92,15 @@ class _HomeState extends State<Home> {
 
                           // Reps Intensity History
                           Container(
-                            height: MediaQuery.of(context).size.height * 0.32,
-                            width: MediaQuery.of(context).size.width * 0.57,
+                            height: MediaQuery.of(context).size.height *
+                                0.32 *
+                                paddingVertical,
+                            width: MediaQuery.of(context).size.width *
+                                0.57 *
+                                paddingHorizontal,
                             decoration: BoxDecoration(
                               color: Theme.of(context).colorScheme.surface,
-                              borderRadius: BorderRadius.circular(30),
+                              borderRadius: BorderRadius.circular(borderRadius),
                             ),
                             alignment: Alignment.center,
                             child: FileAvailabilityWrapper(
@@ -104,11 +116,15 @@ class _HomeState extends State<Home> {
                         children: [
                           // Consistency Calendar
                           Container(
-                            height: MediaQuery.of(context).size.height * 0.40,
-                            width: MediaQuery.of(context).size.width * 0.27,
+                            height: MediaQuery.of(context).size.height *
+                                0.40 *
+                                paddingVertical,
+                            width: MediaQuery.of(context).size.width *
+                                0.27 *
+                                paddingHorizontal,
                             decoration: BoxDecoration(
                               color: Theme.of(context).colorScheme.surface,
-                              borderRadius: BorderRadius.circular(30),
+                              borderRadius: BorderRadius.circular(borderRadius),
                             ),
                             alignment: Alignment.center,
                             child: FileAvailabilityWrapper(
@@ -120,11 +136,15 @@ class _HomeState extends State<Home> {
 
                           // Average Completion
                           Container(
-                            height: MediaQuery.of(context).size.height * 0.40,
-                            width: MediaQuery.of(context).size.width * 0.37,
+                            height: MediaQuery.of(context).size.height *
+                                0.40 *
+                                paddingVertical,
+                            width: MediaQuery.of(context).size.width *
+                                0.37 *
+                                paddingHorizontal,
                             decoration: BoxDecoration(
-                              color: const Color.fromARGB(255, 24, 24, 24),
-                              borderRadius: BorderRadius.circular(30),
+                              color: Theme.of(context).colorScheme.surface,
+                              borderRadius: BorderRadius.circular(borderRadius),
                             ),
                             alignment: Alignment.center,
                             child: FileAvailabilityWrapper(
@@ -136,11 +156,15 @@ class _HomeState extends State<Home> {
 
                           // Log Editor
                           Container(
-                            height: MediaQuery.of(context).size.height * 0.40,
-                            width: MediaQuery.of(context).size.width * 0.27,
+                            height: MediaQuery.of(context).size.height *
+                                0.40 *
+                                paddingVertical,
+                            width: MediaQuery.of(context).size.width *
+                                0.27 *
+                                paddingHorizontal,
                             decoration: BoxDecoration(
                               color: Theme.of(context).colorScheme.surface,
-                              borderRadius: BorderRadius.circular(30),
+                              borderRadius: BorderRadius.circular(borderRadius),
                             ),
                             alignment: Alignment.center,
                             child: Padding(
