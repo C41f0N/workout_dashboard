@@ -7,7 +7,6 @@ import 'package:workout_dashboard/widgets/average_completion_display.dart';
 import 'package:workout_dashboard/widgets/consistency_calender.dart';
 import 'package:workout_dashboard/widgets/file_availability_wrapper.dart';
 import 'package:workout_dashboard/widgets/last_workout_display.dart';
-import 'package:workout_dashboard/widgets/log_editor.dart';
 import 'package:workout_dashboard/widgets/reps_intensity_history.dart';
 import 'package:workout_dashboard/widgets/workout_history_density.dart';
 
