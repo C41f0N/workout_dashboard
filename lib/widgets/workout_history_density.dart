@@ -17,6 +17,9 @@ class _WorkoutHistoryDensityState extends State<WorkoutHistoryDensity> {
   @override
   Widget build(BuildContext context) {
     return Consumer<WorkoutData>(builder: (context, workoutData, widget1) {
+      widget.densityThresholdWeeks =
+          workoutData.getSelectedDensityDurationWeeks() ?? 5;
+
       Map<String, double> workoutDensity =
           workoutData.getWorkoutsDensity(widget.densityThresholdWeeks);
 
@@ -40,7 +43,6 @@ class _WorkoutHistoryDensityState extends State<WorkoutHistoryDensity> {
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.2,
                     child: SizedBox(
-                      // color: Colors.red,
                       child: Row(
                         children: [
                           SizedBox(
@@ -49,8 +51,8 @@ class _WorkoutHistoryDensityState extends State<WorkoutHistoryDensity> {
                                 value: (widget.densityThresholdWeeks - 1) / 36,
                                 onChanged: (newValue) {
                                   setState(() {
-                                    widget.densityThresholdWeeks =
-                                        (newValue * 36).round() + 1;
+                                    workoutData.setSelectedDensityDurationWeeks(
+                                        (newValue * 36).round() + 1);
                                   });
                                 }),
                           ),
