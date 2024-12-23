@@ -19,13 +19,16 @@ class RepsIntensityHistoryState extends State<RepsIntensityHistory> {
     return Consumer<WorkoutData>(builder: (context, workoutDatabase, child) {
       if (workoutDatabase.workouts.isNotEmpty) {
         widget.excerciseName ??=
-            workoutDatabase.workouts.last.excercises.last.name;
+            workoutDatabase.getSelectedSetHisoryExcercise() ??
+                "Dumbell Push Press";
       } else {
         widget.excerciseName = "";
       }
 
-      Map<DateTime, double> repsHistory =
-          workoutDatabase.getRepsHistory(widget.excerciseName ?? "");
+      Map<DateTime, double> repsHistory = workoutDatabase.getRepsHistory(
+        widget.excerciseName ?? "",
+        const Duration(days: 1000),
+      );
 
       return Padding(
         padding: EdgeInsets.fromLTRB(
@@ -38,39 +41,45 @@ class RepsIntensityHistoryState extends State<RepsIntensityHistory> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.23,
-                  height: MediaQuery.of(context).size.height * 0.05,
-                  child: const AutoSizeText(
-                    "Set History",
-                    style: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 200,
+            SizedBox(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.23,
+                    height: MediaQuery.of(context).size.height * 0.05,
+                    child: const AutoSizeText(
+                      "Set History",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 200,
+                      ),
+                      textAlign: TextAlign.left,
                     ),
-                    textAlign: TextAlign.left,
                   ),
-                ),
-                DropdownButton(
-                  value: widget.excerciseName,
-                  items: workoutDatabase
-                      .getAllRecordedExcerciseNames()
-                      .map(
-                        (excerciseName) => DropdownMenuItem(
-                          value: excerciseName,
-                          child: AutoSizeText(excerciseName),
-                        ),
-                      )
-                      .toList(),
-                  onChanged: (excerciseName) {
-                    setState(() {
-                      widget.excerciseName = excerciseName;
-                    });
-                  },
-                ),
-              ],
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.2,
+                    child: DropdownButton(
+                      isExpanded: true,
+                      value: widget.excerciseName,
+                      items: workoutDatabase
+                          .getAllRecordedExcerciseNames()
+                          .map(
+                            (excerciseName) => DropdownMenuItem(
+                              value: excerciseName,
+                              child: AutoSizeText(excerciseName),
+                            ),
+                          )
+                          .toList(),
+                      onChanged: (excerciseName) {
+                        setState(() {
+                          widget.excerciseName = excerciseName;
+                        });
+                      },
+                    ),
+                  ),
+                ],
+              ),
             ),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.17,
@@ -87,7 +96,7 @@ class RepsIntensityHistoryState extends State<RepsIntensityHistory> {
                     topTitles: const AxisTitles(),
                     bottomTitles: AxisTitles(
                         sideTitles: SideTitles(
-                      showTitles: true,
+                      showTitles: false,
                       getTitlesWidget: (value, meta) {
                         DateTime date =
                             DateTime.fromMillisecondsSinceEpoch(value.toInt());
@@ -95,14 +104,17 @@ class RepsIntensityHistoryState extends State<RepsIntensityHistory> {
                             "${date.year.toString().substring(2)}/${date.month}");
                       },
                     )),
-                    rightTitles: AxisTitles(),
+                    rightTitles: const AxisTitles(),
                   ),
                   lineBarsData: [
                     LineChartBarData(
                       isCurved: true,
+                      dotData: const FlDotData(show: false),
+                      preventCurveOverShooting: true,
+                      preventCurveOvershootingThreshold: 0.1,
                       color: Theme.of(context).colorScheme.primary,
                       barWidth: 5,
-                      curveSmoothness: 0.2,
+                      curveSmoothness: 0.5,
                       spots: List.generate(repsHistory.length, (i) {
                         // Getting an double value for dateTime so that it can be passed into FlSpot
                         double xValue = (repsHistory.keys.toList())[i]
