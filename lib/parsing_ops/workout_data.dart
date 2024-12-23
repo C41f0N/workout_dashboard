@@ -288,7 +288,7 @@ class WorkoutData extends ChangeNotifier {
   List<String> getAllRecordedExcerciseNames() {
     Set<String> excerciseNames = {};
 
-    for (int i = 0; i < workouts.length; i++) {
+    for (int i = workouts.length - 1; i >= 0; i--) {
       for (int j = 0; j < workouts[i].excercises.length; j++) {
         excerciseNames.add(workouts[i].excercises[j].name);
       }
@@ -308,12 +308,21 @@ class WorkoutData extends ChangeNotifier {
   }
 
   // Get Reps History for an excercise
-  Map<DateTime, double> getRepsHistory(String excerciseName) {
+  Map<DateTime, double> getRepsHistory(
+    String excerciseName,
+    Duration duration,
+  ) {
+    setSelectedSetHisoryExcercise(excerciseName);
     Map<DateTime, double> repsHistory = {};
 
     // Check each workout
-    for (int i = 0; i < workouts.length; i++) {
+    for (int i = workouts.length - 1; i >= 0; i--) {
       // Get excercise index
+
+      if (workouts[i].date.isBefore(DateTime.now().subtract(duration))) {
+        break;
+      }
+
       int excerciseIndex = workouts[i]
           .excercises
           .indexWhere((Excercise excercise) => excercise.name == excerciseName);
@@ -332,15 +341,11 @@ class WorkoutData extends ChangeNotifier {
   Map<String, double> getWorkoutsDensity(int weeks) {
     Map<String, int> workoutCount = {};
 
-    DateTime thresholdDate = DateTime(
-      DateTime.now().year,
-      DateTime.now().month,
-      DateTime.now().day,
-    ).subtract(Duration(days: weeks * 7));
+    DateTime thresholdDate = DateTime.now().subtract(Duration(days: weeks * 7));
 
     int totalWorkouts = 0;
 
-    for (int i = 0; i < workouts.length; i++) {
+    for (int i = workouts.length - 1; i >= 0; i--) {
       if (workouts[i].date.isAfter(thresholdDate)) {
         totalWorkouts++;
 
@@ -349,6 +354,8 @@ class WorkoutData extends ChangeNotifier {
         } else {
           workoutCount[workouts[i].name] = workoutCount[workouts[i].name]! + 1;
         }
+      } else {
+        break;
       }
     }
 
@@ -374,5 +381,13 @@ class WorkoutData extends ChangeNotifier {
 
   void setWorkoutLogFileRawString(String rawString) {
     rawWorkoutLogString = rawString;
+  }
+
+  void setSelectedSetHisoryExcercise(String workout) {
+    _workoutDatabase.put("SELECTED_SET_HISTORY_WORKOUT", workout);
+  }
+
+  String? getSelectedSetHisoryExcercise() {
+    return _workoutDatabase.get("SELECTED_SET_HISTORY_WORKOUT");
   }
 }
